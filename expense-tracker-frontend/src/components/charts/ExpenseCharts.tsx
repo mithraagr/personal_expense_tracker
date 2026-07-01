@@ -4,7 +4,17 @@ import { formatCurrency } from '../../utils/format';
 
 const COLORS = ['#d451d9', '#7c5cff', '#2ed88b', '#1aa9ff', '#f7a323', '#eb4c77', '#7de3ff', '#a66bff'];
 
-const tooltipFormatter = (value: number | string) => formatCurrency(Number(value));
+const tooltipFormatter = (value: unknown) => {
+  if (Array.isArray(value)) {
+    return `₹${value[0]}`;
+  }
+
+  if (value === undefined || value === null) {
+    return "";
+  }
+
+  return `₹${value}`;
+};
 
 export const ExpenseCharts = ({ summary }: { summary: AnalyticsSummary }) => {
   const hasChartData = summary.categoryTotals.length > 0;
