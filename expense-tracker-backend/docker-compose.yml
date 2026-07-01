@@ -1,0 +1,12 @@
+services:
+  expense_backend:
+    build: .
+    container_name: expense_tracker_backend
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      DATABASE_URL: sqlite:////app/data/expenses.db
